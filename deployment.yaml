@@ -4,6 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/component: service
   name: react-app
+  namespace: obf
 spec:
   replicas: 1
   selector:
