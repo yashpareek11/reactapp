@@ -16,7 +16,9 @@ jobs:
   setup-deploy:
      name: setup deploy deployment
      runs-on: ubuntu-latest
-     environment: development
+     environment: 'development'
+     if: ${{ success() }}
+     
 
      steps:    
        - name: checkout
