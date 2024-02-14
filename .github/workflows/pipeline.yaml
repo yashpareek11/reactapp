@@ -26,4 +26,4 @@ jobs:
     - name: Test service URLs
       run: |
           minikube service list
-          minikube service react-app --url
+          minikube service react-app -n app
