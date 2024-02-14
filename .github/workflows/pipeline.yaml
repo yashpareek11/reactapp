@@ -1,29 +1,47 @@
-name: Deploy to Minikube using GitHub Actions
+name: deploy helm chart on secondary cluster
 
-on: [push]
-  
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: k8s-cluster
+  GKE_ZONE: asia-south1-a
+  DEPLOYMENT_NAME: react-app-deployment
+  IMAGE: react-app-deployment-image
+
 jobs:
-  job1:
-    runs-on: ubuntu-latest
-    name: build Node.js Docker Image and deploy to minikube
-    steps:
-    - uses: actions/checkout@v2
-    - name: Start minikube
-      uses: medyagh/setup-minikube@master
-    - name: Try the cluster !
-      run: kubectl get pods -A
-    - name: Build image
-      run: |
-          export SHELL=/bin/bash
-          eval $(minikube -p minikube docker-env)
-          docker build -f ./Dockerfile -t yashpareek99/reactjs-image:latest .
-          echo -n "verifying images:"
-          docker images         
-    - name: Deploy to minikube
-      run: |
-        kubectl create ns app
-        kubectl apply -f deployment.yaml -n app
-    - name: Test service URLs
-      run: |
-          minikube service list
-          minikube service react-app -n app
+  setup-deploy:
+     name: setup deploy deployment
+     runs-on: ubuntu-latest
+     environment: development
+
+     steps:    
+       - name: checkout
+         uses: actions/checkout@v3         
+
+       # Setup gcloud CLI
+       - id: 'auth'
+         uses: 'google-github-actions/auth@v0'
+         with:
+          credentials_json: '${{ secrets.GKE_SA_KEY }}'
+
+       # Get the GKE credentials so we can deploy to the cluster
+       - name: Set up GKE credentials
+         uses: google-github-actions/get-gke-credentials@v0
+         with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+
+       - name: deployment of application of GKE cluster
+         run: |
+           kubectl create ns app
+           kubectl apply -f deployment.yaml -n app
+
+       - name: Test service URLs
+         run: |
+           kubectl get svc -n app | grep react
+           
+      
