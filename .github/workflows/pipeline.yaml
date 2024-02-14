@@ -7,8 +7,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: k8s-cluster
-  GKE_ZONE: asia-south1-a
+  GKE_CLUSTER: k8s-cluster-1
+  GKE_ZONE: asia-south1-c
   DEPLOYMENT_NAME: react-app-deployment
   IMAGE: react-app-deployment-image
 
