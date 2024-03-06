@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #search-container {
+            text-align: center;
+        }
+
+        #google-logo {
+            width: 92px;
+            height: 30px;
+            margin-bottom: 20px;
+        }
+
+        #search-box {
+            padding: 10px;
+            width: 400px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+        }
+
+        #search-button {
+            background-color: #4285f4;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #feeling-lucky {
+            color: #4285f4;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="search-container">
+        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png" alt="Google Logo" id="google-logo">
+        <form action="https://www.google.com/search" method="GET">
+            <input type="text" id="search-box" name="q" placeholder="Search Google">
+            <br>
+            <button type="submit" id="search-button">Google Search</button>
+        </form>
+        <a href="https://www.google.com" id="feeling-lucky">I'm Feeling Lucky</a>
+    </div>
+
+</body>
+</html>
